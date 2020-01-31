@@ -1,0 +1,184 @@
+<!DOCTYPE>
+<html>
+<head>
+
+	<link href="https://fonts.googleapis.com/css?family=Anton|Fruktur&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<style>
+		.content{
+			
+			width:600;
+			margin : auto ;
+			display : flex;
+			flex-direction: column;
+			justify-content:center;		
+
+		}
+		.title1{
+			font-size: 30px; 
+			font-weight: bold;
+			font-family: 'Fruktur', cursive;
+		}
+		.title2{
+			font-size: 30px;
+			font-weight: bold;
+			
+		}
+		p.a{font-family: 'Anton', sans-serif;}
+
+
+		.myimg{
+
+			width: 550px ;
+			height: 250px ;
+			background-image:url('http://image.auction.co.kr/itemimage/1b/05/59/1b05596bb6.jpg');
+
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			text-align:center;
+
+			margin:  auto;
+
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.form-group{
+			margin: 0px 0px 0px 10px;
+		}
+
+		.btn{
+			margin-left: 120px;	
+		}
+		.info_group{
+			word-break:break-all;
+		}
+
+	</style>
+
+	<script>
+
+		function input_btn(){
+
+			let myname = $('#input_name').val();
+			let myquantity = $('#input_quantity').val();
+			let myaddress = $('#input_address').val();
+			let myphone_num = $('#input_phone_num').val();
+			let temp_html = 
+			'<tr>\
+			<td scope="row">' + myname + '</td>\
+			<td>' + myquantity + '</td>\
+			<td>' + myaddress + '</td>\
+			<td>' + myphone_num + '</td>\
+			</tr>';
+
+			var tel = myphone_num;
+			pattern = /^\d{3}-\d{4}-\d{4}/;
+
+
+			if (myname == '') { 
+				alert('주문자 이름을 입력하세요!');
+				myname.focus(); 
+			} else if (myquantity == '---- 수량을 선택하세요 ----') { 
+				alert('수량을 선택하세요!')
+				myquantity.focus();
+			} else if (myaddress == '') { 
+				alert('주소를 입력하세요!');
+				myaddress.focus();
+			} else if (pattern.test(tel)== false) { 
+				alert('전화번호를 입력하세요!');
+				mynumber.focus();
+			} else {
+                    $('#info_table').show();
+                    $('#table_user').append(temp_html);
+                }
+            }
+        </script>
+    </head>
+
+
+    <body>	
+    	<div class="content">
+
+
+    		<div class="myimg">
+
+    		</div>
+
+    		<div class="content1">
+    			<p6 class="title1">파퀴칩스</p6>   <p1>가격:59,900원 /개</p1> 
+
+    			<p class="a">
+    				유튜브에 매운 과자 먹기 챌린지로 유명한 세계에서 제일 매운
+    				정말 정말 매운 과자입니다.
+    				파퀴칩스 원칩챌린지 세계에서 가장 매운 과자에 도전하세요!
+
+    			</p>
+    		</div>
+
+    		<div>
+
+    			<p class="title2">주문하기</p>
+
+    			<div class="input-group mb-3">
+    				<div class="input-group-prepend">
+    					<span class="input-group-text" id="basic-addon1">주문자 성함:</span>
+    				</div>
+    				<input id="input_name" type="text" class="form-control" >
+    			</div>
+
+    			<div class="input-group mb-3">
+    				<div class="input-group-prepend">
+    					<label class="input-group-text" for="quantity">수량</label>
+    				</div>
+    				<select id="input_quantity" class="custom-select"> 
+    					<option selected>-- 수량을 선택하세요 --</option>
+    					<option value="1">1</option>
+    					<option value="2">2</option>
+    					<option value="3">3</option>
+    				</select>
+    			</div>
+
+    			<div class="input-group mb-3">
+    				<div class="input-group-prepend">
+    					<span class="input-group-text" id="basic-addon1">주소</span>
+    				</div>
+    				<input id="input_address" type="text" class="form-control"  >
+    			</div>
+
+    			<div class="input-group mb-3">
+    				<div class="input-group-prepend">
+    					<span class="input-group-text" id="basic-addon1">전화번호</span>
+    				</div>
+    				<input id="input_phone_num" type="text" class="form-control"  >
+    			</div>
+
+    			<div class="btn">
+    				<button type="button" onclick = "input_btn()" class="btn btn-primary">주문하기</button>
+    			</div>
+    		</div>
+
+    		<table class="table" id="info_table" style="margin-top:50px; display :none">
+    			<thead>
+    				<tr>
+    					<th scope="col">이름</th>
+    					<th scope="col">수량</th>
+    					<th scope="col">주소</th>
+    					<th scope="col">전화번호</th>
+    				</tr>
+    			</thead>
+    			<tbody id="table_user">
+
+    			</tbody>
+    		</table>
+    	</div>
+    </body>
+    </html>

@@ -26,8 +26,46 @@
 
 		setInterval(blinker, 800);
 
-		
-		let num = 0;
+		$(document).ready(function(){
+			
+			listing();
+		});
+
+		let num = 1;
+
+		function listing() {
+			$.ajax({
+				type: "GET",
+				url: "http://spartacodingclub.shop/order",
+				data: {},
+				success: function(response){
+
+					let orders = response['orders']
+
+					$('#order_list').html('');
+
+					for (let i = 0; i < orders.length; i++) {
+						let cust_address = orders[i]['address']
+						let cust_count = orders[i]['count']
+						let cust_name = orders[i]['name']
+						let cust_phone = orders[i]['phone']
+						let temp_html =
+						'<tr>\
+						<th scope="row">'+ num++ +'</th>\
+						<td> '+cust_address+' </td>\
+						<td> '+cust_count+' </td>\
+						<td> '+cust_name+' </td>\
+						<td> '+cust_phone+' </td>\
+						</tr>'
+						$('#info-table').show()
+						$('#order_list').append(temp_html)
+
+					}
+				}
+			})
+		}
+
+
 		function order(){
 
 			let names = $('#input-name').val();
@@ -38,15 +76,7 @@
 			let address = $('#input-address').val();
 			let phone = $('#phone-num').val();
 			var regExp = /^(01[016789]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
-			var buyers = names.replace(/(?<=.{1})./, "*");
-			let customer =  
-			'<tr>\
-			<td scope="row">' + (num+1) + '</td>\
-			<td>' + buyers + '</td>\
-			<td>' + colorselected + '</td>\
-			<td>' + volselected + '</td>\
-			</tr>';
-
+			
 
 			if (names == '') {
 				alert('이름을 확인하세요!!');
@@ -56,45 +86,27 @@
 				alert('색상을 확인하세요!!');
 				$('#inputGroupSelect01').focus()
 
-
 			} else if(vol == '0') {
 				alert('용량을 확인하세요!!');
 				$('#inputGroupSelect02').focus()
-
 
 			} else if (address == ''){
 				alert('주소를 확인하세요!!');
 				$('#input-address').focus()
 
-
 			} else if (phone == ''){
 				alert('전화번호를 확인하세요!!');
 				$('#phone-num').focus()
 
-
 			} else if (regExp.test(phone) == false){
 				alert('전화번호 서식을 확인하세요!\n01X-XXXX-XXXX');
-				$('#phone-num').focus()
-
-
-			} else if (num < 10){
-				var result = confirm('이름 ------ ' +names+ '\n색상 ------ ' +colorselected+ '\n용량 ------ ' +volselected+ '\n주소 ------ ' +address+ '\n전화번호 - ' +phone+ '\n\n이대로 주문하시겠습니까?');
-
-				if (result){
-					num++;
-					alert( '축하드립니다! '+names+ '님은' +num+ "번째로 주문 성공하셨습니다!");
-					$('#info-table').show()
-					$('#order-list').append(customer)
-
-				} else {
-					alert("주문 취소하셨습니다.")
-					return;
-				}
+				$('#phone-num').focus()		
 
 			} else {
-				alert('품절입니다!');
+				alert("주문 성공하셨습니다.")
 				return;
 			}
+
 		}
 
 	</script>
@@ -276,12 +288,13 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
+					<th scope="col">주소</th>
+					<th scope="col">수량</th>
 					<th scope="col">이름</th>
-					<th scope="col">색상</th>
-					<th scope="col">용량</th>
+					<th scope="col">번호</th>
 				</tr>
 			</thead>
-			<tbody id="order-list" class="order_list">
+			<tbody id="order_list" class="orderlist">
 				
 			</tbody>
 		</table>
